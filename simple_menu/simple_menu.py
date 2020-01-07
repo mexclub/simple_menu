@@ -14,8 +14,7 @@ class simple_menu():
 
     def show(self):
         time.sleep_ms(500)
-        self.display.fill_rect(0, 0, 128, 64, 0)
-        self.display.show()
+        self.display.fill(0)
         offset_y = 4
         row_offset = 0
         while True:
@@ -42,7 +41,7 @@ class simple_menu():
                             return True
                         module = __import__(self.menu_actions[row], globals(), locals(), [self.menu_actions[row]], 0)
                         my_function = getattr(module, self.menu_actions[row])
-                        my_function()
+                        my_function(self.display)
                 else:
                     bg_color = 0
                     fg_color = 1

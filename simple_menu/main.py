@@ -1,14 +1,17 @@
 import time
 import ssd1306
 import simple_menu
-from machine import SPI, Pin
+# from machine import SPI, Pin
+from machine import I2C, Pin
 
 pb = Pin(16, Pin.IN)
 
-display = ssd1306.SSD1306_SPI(128,64,SPI(1), Pin(4), Pin(5), Pin(15), False)
+i2c = I2C(-1, Pin(14), Pin(13))
+display = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C, external_vcc=False)
+# display = ssd1306.SSD1306_SPI(128,64,SPI(1), Pin(4), Pin(5), Pin(15), False)
+
 menu_list = ['back', 'clock', 'alarm', 'wifi connect', 'settings', 'reset']
 menu_actions = ['<BACK>', 'clock', 'alarm', 'wificonnect', 'settings', 'reset']
-#menu_list = ['001', '002', '003', '004', '005', '006', '007', '007', '009', '010', '011', '012', '013', '014', '015', '016', '017']
 menu = simple_menu.simple_menu(display, pb, menu_list, menu_actions)
 
 while True:
@@ -19,4 +22,4 @@ while True:
 
     if not pb.value():
         menu.show()
-    time.sleep_ms(100)
+    time.sleep_ms(10)

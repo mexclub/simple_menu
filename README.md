@@ -20,15 +20,25 @@ A continuación la tabla de conexiones:
 | 3.3 | PullUp PinA/PinB/PB |
 | GND | Middle Pin/PB |
 
-| NodeMCU | Display 128x64 |
+Versión SPI
+| NodeMCU | Display SPI 128x64 |
 | ------:| -----------:|
 | D1 | RES |
 | D2 | DC |
 | 3.3 | VDD |
 | GND | GND |
-| D5 | SCK
+| D5 | SCK |
 | D7 | SDA |
 | D8 | CS |
+
+Versión I2C
+| NodeMCU | Display I2C 128x64 |
+| ------:| -----------:|
+| 3.3 | VDD |
+| GND | GND |
+| D5 | SCK |
+| D7 | SDA |
+
 
 En la figura 1 se muestra de forma de conectar los componentes
 
@@ -49,16 +59,20 @@ ampy -p com3 put settings.json
 com3 es el puerto Windows donde ha quedado instalado el controlador del chip usb-serial CH340G o CP2102 dependiendo del modelo de la placa. Si se tiene Linux el puerto generalmente es /dev/ttyUSB0
 
 
-El archivo main.py es el primer programa que se carga al inicializar o reiniciar la placa. Aquí se muestra cu contenido en donde se puede ver como se inicializa el objeto *display* que se reutiliza en los módulos cargados, también se muestra la creación del menú y sus acciones de cada elemento del menú, dentro de cada aplicación puede contener un menú (submenu) o un programa final, dicho programa final debe tener una forma de finalizar para regresar el control al menú de donde se ejecutó. Se recomienda que la terminación del programa sea pulsando el push button del rotary encoder.
+El archivo main.py es el primer programa que se carga al inicializar o reiniciar la placa. Aquí se muestra cu contenido en donde se puede ver como se inicializa el objeto *display* que se reutiliza en los módulos cargados, también se muestra la creación del menú y sus acciones de cada elemento del menú, dentro de cada aplicación puede contener un menú (submenu) o un programa final, dicho programa final debe tener una forma de finalizar para regresar el control al menú de donde se ejecutó. Se recomienda que la terminación del programa sea pulsando el push button del rotary encoder. Como ejemplo existe el archivo clock.py
 ~~~micropython
 import time
 import ssd1306
 import simple_menu
 from machine import SPI, Pin
+# from machine import I2C, Pin
 
 pb = Pin(16, Pin.IN)
 
+# i2c = I2C(-1, Pin(14), Pin(13))
+# display = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C, external_vcc=False)
 display = ssd1306.SSD1306_SPI(128,64,SPI(1), Pin(4), Pin(5), Pin(15), False)
+
 menu_list = ['back', 'clock', 'alarm', 'wifi connect', 'settings', 'reset']
 menu_actions = ['<BACK>', 'clock', 'alarm', 'wificonnect', 'settings', 'reset']
 menu = simple_menu.simple_menu(display, pb, menu_list, menu_actions)
@@ -71,7 +85,7 @@ while True:
 
     if not pb.value():
         menu.show()
-    time.sleep_ms(100)
+    time.sleep_ms(10)
 ~~~
 
 

@@ -21,6 +21,7 @@ A continuación la tabla de conexiones:
 | GND | Middle Pin/PB |
 
 Versión SPI
+
 | NodeMCU | Display SPI 128x64 |
 | ------:| -----------:|
 | D1 | RES |
@@ -32,6 +33,7 @@ Versión SPI
 | D8 | CS |
 
 Versión I2C
+
 | NodeMCU | Display I2C 128x64 |
 | ------:| -----------:|
 | 3.3 | VDD |

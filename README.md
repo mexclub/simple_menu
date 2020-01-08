@@ -5,6 +5,7 @@ Para este ejemplo se esta usando una placa NodeMCU ESP8266 con firmware de micro
 el cual hs sido cargado siguiendo las 
 **<a href="http://docs.micropython.org/en/latest/esp8266/tutorial/intro.html#deploying-the-firmware">instrucciones</a>**
 del sitio de micropython.
+Se esta usando los drivers para chipset **<a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP2102</a>**.
 
 También es necesario contar con la aplicación de consola
 **<a href="https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy">ampy de Adafruit</a>**

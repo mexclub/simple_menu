@@ -4,14 +4,13 @@ from machine import Pin, RTC
 import math
 
 class clock():
-    def __init__(self, display):
+    def __init__(self, display, rotary_enc, settings_obj):
         self.display = display
+        self.rotary_enc = rotary_enc
+        self.settings_obj = settings_obj
 
         led = Pin(2, Pin.OUT)
         led.on()
-        pb = Pin(16, Pin.IN)
-        ra = Pin(0, Pin.IN)
-        rb = Pin(2, Pin.IN)
 
         self.display.fill(0)
         self.display.text("",0,0,1)
@@ -85,11 +84,8 @@ class clock():
             px_hour = x_hour
             py_hour = y_hour
 
-            if pb.value():
-                pass
-            else:
+            if not rotary_enc['pb'].value():
                 time.sleep_ms(500)
-                self.display.fill(0)
                 return None
 
             self.display.show()

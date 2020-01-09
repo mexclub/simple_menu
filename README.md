@@ -93,7 +93,5 @@ while True:
 
 Algunos videos de Youtube para complementar información:
 
-<iframe width="420" height="315"
-src="https://www.youtube.com/channel/UCOhshmzwIlELoF38J2j9k-w">
-</iframe>
+<a href="https://www.youtube.com/channel/UCOhshmzwIlELoF38J2j9k-w">Canal de Youtube</a>
 
